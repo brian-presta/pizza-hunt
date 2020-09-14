@@ -36,7 +36,7 @@ const handleAddTopping = event => {
   toppingValue.value = '';
 };
 
-const handlePizzaSubmit = event => {
+const handlePizzaSubmit = async event => {
   event.preventDefault();
 
   const pizzaName = $pizzaForm.querySelector('#pizza-name').value;
@@ -51,6 +51,24 @@ const handlePizzaSubmit = event => {
   }
 
   const formData = { pizzaName, createdBy, size, toppings };
+
+  try {  
+    const stream = await fetch('/api/pizzas', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData)
+    })
+    const response = await stream.json()
+    alert('Pizza created successfully!')
+    console.log(response)
+  }
+  catch(err) {
+    alert("Something went wrong!")
+    console.log(err)
+  }
 };
 
 $pizzaForm.addEventListener('submit', handlePizzaSubmit);
