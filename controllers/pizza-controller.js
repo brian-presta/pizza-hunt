@@ -35,7 +35,7 @@ const pizzaController = {
             res.status(400).json(err)
         }
     },
-    async updatePizza({ params:{id},body }, res) {
+    async updatePizza({ params:{id}, body }, res) {
         try {
             const pizzaData = await Pizza.findOneAndUpdate({_id:id},body,{new:true})
             if (!pizzaData) {
