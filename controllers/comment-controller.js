@@ -23,7 +23,7 @@ const commentController = {
             res.status(400).json(err)
         }
     },
-    async removeComment({ params: {commentId,pizzaId}}) {
+    async removeComment({ params: {commentId,pizzaId}}, res) {
         try {
             const comment = await Comment.findOneAndDelete({_id:commentId})
             if (!comment) {

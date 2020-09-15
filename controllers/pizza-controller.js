@@ -4,6 +4,12 @@ const pizzaController = {
     async getAllPizza(req,res) {
         try {
             const pizzaData = await Pizza.find({})
+            .populate({
+                path: 'comments',
+                select: '-__v'
+            })
+            .select('-__v')
+            .sort({ _id: -1 })
             res.json(pizzaData)
         }
         catch(err){
@@ -14,6 +20,11 @@ const pizzaController = {
     async getPizzaById({ params }, res) {
         try {
             const pizzaData = await Pizza.findOne({_id:params.id})
+            .populate({
+                path: 'comments',
+                select: '-__v'
+            })
+            .select('-__v')
             if (!pizzaData) {
                     res.status(404).json({message: 'No pizza found with this id!'})
                     return
