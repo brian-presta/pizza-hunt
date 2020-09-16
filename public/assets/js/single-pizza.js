@@ -126,7 +126,7 @@ async function handleNewCommentSubmit(event) {
   }
 }
 
-function handleNewReplySubmit(event) {
+async function handleNewReplySubmit(event) {
   event.preventDefault();
 
   if (!event.target.matches('.reply-form')) {
@@ -143,6 +143,24 @@ function handleNewReplySubmit(event) {
   }
 
   const formData = { writtenBy, replyBody };
+
+  try {
+    const stream = await fetch(`/api/comments/${pizzaId}/${commentId}`, {
+      method: 'PUT',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData)
+    })
+    if (!stream.ok) {
+      throw new Error('SOmething went wrong!')
+    }
+    location.reload()
+  }
+  catch(err) {
+    console.log(err)
+  }
 }
 
 $backBtn.addEventListener('click', function() {
