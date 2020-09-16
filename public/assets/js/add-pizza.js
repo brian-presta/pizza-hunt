@@ -66,8 +66,8 @@ const handlePizzaSubmit = async event => {
     console.log(response)
   }
   catch(err) {
-    alert("Something went wrong!")
     console.log(err)
+    saveRecord(formData)
   }
 };
 
