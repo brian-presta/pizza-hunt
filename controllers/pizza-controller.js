@@ -48,7 +48,7 @@ const pizzaController = {
     },
     async updatePizza({ params:{id}, body }, res) {
         try {
-            const pizzaData = await Pizza.findOneAndUpdate({_id:id},body,{new:true})
+            const pizzaData = await Pizza.findOneAndUpdate({_id:id},body,{new:true, runValidators: true})
             if (!pizzaData) {
                 res.status(404).json({ message: 'No pizza found with this id!' });
                 return;
