@@ -28,7 +28,7 @@ const commentController = {
             const comment = await Comment.findOneAndUpdate(
                 {_id:commentId},
                 { $push: {replies:body}},
-                {new:true}
+                {new:true, runValidators:true}
             )
             if (!comment) {
                 res.status(404).json({message: "ID not found!"})
